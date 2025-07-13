@@ -1,9 +1,11 @@
-import { Form, Space, Input, Select, Radio, Button } from "antd"
+import { Form, Card, Input, Select, Radio, Flex, Button } from "antd"
 import { SELECT_CATEGORY_OPTIONS, RADIO_STATUS_OPTIONS,RADIO_PRIORITY_OPTIONS } from "../../entities/task/model/const"
 import { useTaskStore } from "../../entities/task/model/store"
 import { useDraftStore } from "../../entities/task/model/draftStore"
 import { useNavigate } from "react-router-dom"
 import type { Task, DraftTask } from "../../entities/task/model/types"
+import { SubmitButton } from "../../shared/SubmitButton"
+import styles from "./ui.module.css"
 
 
 export function TaskDetails() {
@@ -14,14 +16,9 @@ export function TaskDetails() {
     
     form.setFieldsValue(draft)
 
-    const handleSaveTask = async () => {
-        try {
-           await form.validateFields()
-           saveTask(draft as Task)
-           navigate("/")
-        } catch(error) {
-            console.warn("Validation error:", error);
-        }
+    const handleSaveTask = () => {
+        saveTask(draft as Task)
+        navigate("/")
     }
 
     const handleDeleteTask = () => {
@@ -34,28 +31,32 @@ export function TaskDetails() {
     }
 
     return (
-        <Space>
+        <Card
+        className={styles.container}>
             <Form
             form={form}
-            layout="vertical"
-            onValuesChange={handleUpdateDraft}>
+            onValuesChange={handleUpdateDraft}
+            onFinish={handleSaveTask}>
                 <Form.Item
                 name="title"
                 rules={[{required: true}]}>
-                    <Input/>
+                    <Input
+                    placeholder="What needs to be done?"/>
                 </Form.Item>
 
                 <Form.Item 
                 name="category"
                 rules={[{required: true}]}>
                     <Select
-                    options={SELECT_CATEGORY_OPTIONS}/>
+                    options={SELECT_CATEGORY_OPTIONS}
+                    placeholder="Tap to categorize..."/>
                 </Form.Item>
 
                 <Form.Item
                 name="status"
                 rules={[{required: true}]}>
                     <Radio.Group 
+                    className={styles.radiogroup}
                     options={RADIO_STATUS_OPTIONS} 
                     optionType="button"
                     buttonStyle="solid" block/>
@@ -73,23 +74,25 @@ export function TaskDetails() {
                 <Form.Item
                 name="description">
                     <Input.TextArea 
-                    autoSize={{minRows: 4, maxRows: 4}}/>
+                    autoSize={{minRows: 4, maxRows: 4}}
+                    placeholder="Add more details or context..."/>
                 </Form.Item>
 
-                <Form.Item>
+                <Flex
+                gap="large">
                     <Button 
-                    type="primary" 
-                    htmlType="submit"
-                    onClick={handleSaveTask}>
-                        Save
+                    onClick={handleDeleteTask} danger>
+                        Delete
                     </Button>
-                </Form.Item>
-            </Form>
 
-            <Button 
-            onClick={handleDeleteTask}danger>
-                Delete
-            </Button>
-        </Space>
+                    <Form.Item>
+                        <SubmitButton
+                        form={form}>
+                            Save
+                        </SubmitButton>
+                    </Form.Item>
+                </Flex>
+            </Form>
+        </Card>
     )
 }

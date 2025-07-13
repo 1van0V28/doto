@@ -5,7 +5,6 @@ import { DraftProvider } from "./entities/task/model/draftStore"
 import { Routes, Route } from "react-router-dom"
 import { HomePage } from "./pages/HomePage/ui"
 import { EditPage } from "./pages/EditPage/ui"
-import './App.css'
 
 
 function App() {
