@@ -1,9 +1,11 @@
 import { useTaskStore } from "../../entities/task/model/store"
 import { useDraftStore } from "../../entities/task/model/draftStore"
 import { useNavigate } from "react-router-dom"
-import { Space, Button } from "antd"
+import { Button } from "antd"
 import { TaskItem } from "../TaskItem/ui"
 import { INITIAL_DRAFT_TASK } from "../../entities/task/model/const"
+import { PlusSquareFilled } from "@ant-design/icons"
+import styles from "./ui.module.css"
 
 
 export function TaskList() {
@@ -25,9 +27,11 @@ export function TaskList() {
     })
 
     return (
-        <Space wrap>
-            <Button onClick={handleAddTask}>Add</Button>
+        <div className={styles.container}>
+            <Button  className={styles.button} onClick={handleAddTask}>
+                <PlusSquareFilled className={styles.button_icon}/>
+            </Button>
             {taskList}
-        </Space>
+        </div>
     )
 }
