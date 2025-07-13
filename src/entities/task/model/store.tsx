@@ -1,15 +1,5 @@
-import { 
-    createContext, 
-    useContext, 
-    useReducer,
-    type ReactNode, 
-} from "react"
-import { 
-    type TaskContextType, 
-    type Task, 
-    type TaskReducerAction, 
-    TaskReducerActionType 
-} from "./types"
+import { createContext, useContext, useReducer, type ReactNode } from "react"
+import { type TaskContextType, type Task, type TaskReducerAction, TaskReducerActionType } from "./types"
 import { testTasks } from "../test/testData"
 
 

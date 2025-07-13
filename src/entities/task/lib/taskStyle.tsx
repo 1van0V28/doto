@@ -1,6 +1,6 @@
 import { ClockCircleOutlined, SyncOutlined, CheckCircleOutlined, MinusCircleOutlined } from "@ant-design/icons"
-import { TaskCategory, TaskPriority, TaskStatus } from "../model/types"
-import type { CategoryColor, PriorityColor, StatusStyle } from "./types"
+import { TaskStatus, TaskPriority, TaskCategory } from "../model/types"
+import type { StatusStyle, PriorityColor, CategoryColor } from "./types"
 
 
 export function getTaskStatusStyle(taskStatus: TaskStatus): StatusStyle {

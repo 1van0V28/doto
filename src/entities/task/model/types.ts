@@ -21,13 +21,19 @@ export enum TaskPriority {
     HIGH = "High"
 }
 
-export type Task = {
+export interface Task {
     id: string,
     category: TaskCategory,
     status: TaskStatus,
     priority: TaskPriority,
     title: string,
     description?: string,
+}
+
+export interface DraftTask extends Omit<Task, "category" | "status" | "priority"> {
+    category?: TaskCategory,
+    status?: TaskStatus
+    priority?: TaskPriority
 }
 
 export type TaskContextType = {
@@ -44,3 +50,8 @@ export enum TaskReducerActionType {
 export type TaskReducerAction = 
     | {type: TaskReducerActionType.SAVE_TASK, payload: Task}
     | {type: TaskReducerActionType.DELETE_TASK, payload: Task["id"]}
+
+export type DraftContextType = {
+    draft: DraftTask,
+    updateDraft: (task: DraftTask) => void
+}
